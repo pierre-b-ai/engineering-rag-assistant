@@ -17,6 +17,13 @@ This is a first working version intended as a portfolio project. The current foc
 
 ---
 
+## Demo
+
+![Engineering RAG Assistant demo](assets/demo1.png)
+![Engineering RAG Assistant demo](assets/demo2.png)
+
+---
+
 ## Features
 
 - Index all PDF files stored in `data/raw`
