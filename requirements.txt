@@ -1,0 +1,9 @@
+streamlit
+pypdf
+langchain
+langchain-community
+langchain-text-splitters
+chromadb
+sentence-transformers
+python-dotenv
+cryptography>=3.1
