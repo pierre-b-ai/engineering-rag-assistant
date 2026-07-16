@@ -1,0 +1,869 @@
+{
+  "configuration": {
+    "dataset": "data\\evaluation\\rag_evaluation_questions.json",
+    "retriever": "src.retrieval.retriever:retrieve_relevant_chunks_hybrid_with_rewrite"
+  },
+  "metrics": {
+    "question_count": 10,
+    "page_offset": 0,
+    "page_hit@1": {
+      "successes": 9,
+      "total": 10,
+      "score": 0.9
+    },
+    "page_hit@3": {
+      "successes": 9,
+      "total": 10,
+      "score": 0.9
+    },
+    "page_hit@5": {
+      "successes": 9,
+      "total": 10,
+      "score": 0.9
+    },
+    "page_mrr": 0.9
+  },
+  "questions": [
+    {
+      "id": "Q01",
+      "question": "Quelle autonomie maximale peut-on obtenir avec chacune des deux batteries compatibles avec le DJI Mini 3 ?",
+      "rewritten_query": "Autonomie maximale des deux modèles de batteries compatibles avec le DJI Mini 3.",
+      "search_query": "Quelle autonomie maximale peut-on obtenir avec chacune des deux batteries compatibles avec le DJI Mini 3 ? Autonomie maximale des deux modèles de batteries compatibles avec le DJI Mini 3.",
+      "retrieval_mode": "hybrid_rewrite",
+      "expected_document": "Mini_3_UM_FR.pdf",
+      "expected_pages": [
+        7
+      ],
+      "first_relevant_rank": null,
+      "hits": {
+        "hit@1": false,
+        "hit@3": false,
+        "hit@5": false
+      },
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "source": "Mini_3_UM_FR.pdf",
+          "page": 24,
+          "score": 0.03252247488101534,
+          "semantic_score": 0.6526108259106307,
+          "bm25_score": 19.354621882652225,
+          "rrf_score": 0.03252247488101534,
+          "dense_rank": 1,
+          "bm25_rank": 2,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "DJI Mini 3 Guide d’utilisateur 22 © 2022 DJI Tous droits réservés. Batterie de Vol Intelligente L’appareil DJI Mini 3 est compatible avec la Batterie de Vol Intelligente de DJI Mini 3 Pro (BWX162-2453-7.38) et la Batteri…"
+        },
+        {
+          "rank": 2,
+          "source": "Mini_3_UM_FR.pdf",
+          "page": 65,
+          "score": 0.032018442622950824,
+          "semantic_score": 0.6263887378868126,
+          "bm25_score": 20.387223808621908,
+          "rrf_score": 0.032018442622950824,
+          "dense_rank": 4,
+          "bm25_rank": 1,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "avec différents niveaux d’interférence. Les données sont à titre d’information seulement. Prêtez attention aux invites RTH dans l’application DJI Fly pendant le vol. Général Température de fonctionnement -10 à 40 °C Capa…"
+        },
+        {
+          "rank": 3,
+          "source": "Mini_3_UM_FR.pdf",
+          "page": 68,
+          "score": 0.03200204813108039,
+          "semantic_score": 0.6384644353591719,
+          "bm25_score": 16.370083027101344,
+          "rrf_score": 0.03200204813108039,
+          "dense_rank": 2,
+          "bm25_rank": 3,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "DJI Mini 3 Guide d’utilisateur 66 © 2022 DJI Tous droits réservés. Temps de recharge 101 minutes (avec le chargeur USB-C DJI 30 W et la batterie installée dans l’appareil) 78 minutes (avec le chargeur USB-C DJI 30 W et l…"
+        },
+        {
+          "rank": 4,
+          "source": "Mini_3_UM_FR.pdf",
+          "page": 26,
+          "score": 0.03076923076923077,
+          "semantic_score": 0.6228092168786289,
+          "bm25_score": 15.47246530062276,
+          "rrf_score": 0.03076923076923077,
+          "dense_rank": 5,
+          "bm25_rank": 5,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "accessoires optionnels. Rendez-vous sur la Boutique en ligne DJI officielle pour en savoir plus. Lorsque vous rechargez la batterie installée sur l’appareil ou insérée dans la station de recharge bidirectionnelle DJI Min…"
+        },
+        {
+          "rank": 5,
+          "source": "Mini_3_UM_FR.pdf",
+          "page": 26,
+          "score": 0.030158730158730156,
+          "semantic_score": 0.6334070517982646,
+          "bm25_score": 12.795771466015117,
+          "rrf_score": 0.030158730158730156,
+          "dense_rank": 3,
+          "bm25_rank": 10,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "DJI Mini 3 Guide d’utilisateur 24 © 2022 DJI Tous droits réservés. 3. Pour garantir des performances optimales, maintenez la température de la batterie au- dessus de 20 °C. 4. La capacité réduite de la batterie dans des …"
+        }
+      ]
+    },
+    {
+      "id": "Q02",
+      "question": "Que signifie un clignotement alterné rouge et jaune sur le DJI Mini 3 ?",
+      "rewritten_query": "Signification du code erreur ou indicateur de statut clignotement alterné rouge et jaune sur le drone DJI Mini 3.",
+      "search_query": "Que signifie un clignotement alterné rouge et jaune sur le DJI Mini 3 ? Signification du code erreur ou indicateur de statut clignotement alterné rouge et jaune sur le drone DJI Mini 3.",
+      "retrieval_mode": "hybrid_rewrite",
+      "expected_document": "Mini_3_UM_FR.pdf",
+      "expected_pages": [
+        15
+      ],
+      "first_relevant_rank": 1,
+      "hits": {
+        "hit@1": true,
+        "hit@3": true,
+        "hit@5": true
+      },
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "source": "Mini_3_UM_FR.pdf",
+          "page": 15,
+          "score": 0.03278688524590164,
+          "semantic_score": 0.6264934106266209,
+          "bm25_score": 34.13419520497212,
+          "rrf_score": 0.03278688524590164,
+          "dense_rank": 1,
+          "bm25_rank": 1,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "DJI Mini 3 Guide d’utilisateur 13 © 2022 DJI Tous droits réservés. Indicateur du statut de l’appareil DJI Mini 3 dispose de deux indicateurs du statut de l’appareil. Indicateur du statut de l’appareil Indicateur du statu…"
+        },
+        {
+          "rank": 2,
+          "source": "Mini_3_UM_FR.pdf",
+          "page": 15,
+          "score": 0.03225806451612903,
+          "semantic_score": 0.6211968888496575,
+          "bm25_score": 31.08363908931744,
+          "rrf_score": 0.03225806451612903,
+          "dense_rank": 2,
+          "bm25_rank": 2,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "x2 Clignote deux fois régulièrement en bleu Connexion Wi-Fi activée, en attente de connexion à un appareil mobile —— Bleu fixe Connexion Wi-Fi activée et appareil DJI connecté à un appareil mobile Clignote rapidement en …"
+        },
+        {
+          "rank": 3,
+          "source": "Mini_3_UM_FR.pdf",
+          "page": 57,
+          "score": 0.029957522915269395,
+          "semantic_score": 0.5695590640286207,
+          "bm25_score": 24.935835584925606,
+          "rrf_score": 0.029957522915269395,
+          "dense_rank": 11,
+          "bm25_rank": 3,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "DJI Mini 3 Guide d’utilisateur 55 © 2022 DJI Tous droits réservés. Lorsqu’un signal GNSS est disponible. Limites de vol Application DJI Fly Indicateur du statut de l’appareil Altitude max. L’altitude de l’appareil ne peu…"
+        },
+        {
+          "rank": 4,
+          "source": "Mini_3_UM_FR.pdf",
+          "page": 51,
+          "score": 0.02976190476190476,
+          "semantic_score": 0.5971732998310267,
+          "bm25_score": 14.804256256428165,
+          "rrf_score": 0.02976190476190476,
+          "dense_rank": 3,
+          "bm25_rank": 12,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "DJI Mini 3 Guide d’utilisateur 49 © 2022 DJI Tous droits réservés. Déverrouiller la zone GEO : appuyez pour afficher les informations sur le déverrouillage des zones GEO. La fonction Localiser mon drone vous aide à trouv…"
+        },
+        {
+          "rank": 5,
+          "source": "Mini_3_UM_FR.pdf",
+          "page": 38,
+          "score": 0.02964426877470356,
+          "semantic_score": 0.5769972783770191,
+          "bm25_score": 17.52615264895203,
+          "rrf_score": 0.02964426877470356,
+          "dense_rank": 9,
+          "bm25_rank": 6,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "DJI Mini 3 Guide d’utilisateur 36 © 2022 DJI Tous droits réservés. LED de niveau de batterie Clignotement Niveau de batterie 75 % à 100 % 50 % à 75 % 25 % à 50 % 1 % à 25 % Alerte de la radiocommande La radiocommande éme…"
+        }
+      ]
+    },
+    {
+      "id": "Q03",
+      "question": "Combien de temps le filtre adoucisseur de la machine De’Longhi reste-t-il utilisable si la machine n’est pas utilisée ?",
+      "rewritten_query": "Durée de validité et péremption du filtre adoucisseur pour machine De’Longhi en cas d'inactivité.",
+      "search_query": "Combien de temps le filtre adoucisseur de la machine De’Longhi reste-t-il utilisable si la machine n’est pas utilisée ? Durée de validité et péremption du filtre adoucisseur pour machine De’Longhi en cas d'inactivité.",
+      "retrieval_mode": "hybrid_rewrite",
+      "expected_document": "mode-emploi-delonghi-magnifica-s-smart-feb2533.pdf",
+      "expected_pages": [
+        8
+      ],
+      "first_relevant_rank": 1,
+      "hits": {
+        "hit@1": true,
+        "hit@3": true,
+        "hit@5": true
+      },
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "source": "mode-emploi-delonghi-magnifica-s-smart-feb2533.pdf",
+          "page": 8,
+          "score": 0.03278688524590164,
+          "semantic_score": 0.6241647574336202,
+          "bm25_score": 31.52088303602868,
+          "rrf_score": 0.03278688524590164,
+          "dense_rank": 1,
+          "bm25_rank": 1,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "8 2. Appuyer sur la touche jusqu’à la sélection de la tem- pérature souhaitée : BASSE HAUTE 3. Appuyer sur la touche / (B9) pour confirmer la sélection ; les voyants s’ éteignent. 10. FILTRE ADOUCISSEUR Certains modèles …"
+        },
+        {
+          "rank": 2,
+          "source": "mode-emploi-delonghi-magnifica-s-smart-feb2533.pdf",
+          "page": 8,
+          "score": 0.03225806451612903,
+          "semantic_score": 0.5999349402409628,
+          "bm25_score": 27.777726198757854,
+          "rrf_score": 0.03225806451612903,
+          "dense_rank": 2,
+          "bm25_rank": 2,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "distribution vapeur/eau chaude en position O. Maintenant le filtre est activé et il est possible d’utiliser la machine. Nota Bene : Il peut arriver qu’une seule production d’ eau chaude ne soit pas suffisante pour instal…"
+        },
+        {
+          "rank": 3,
+          "source": "mode-emploi-delonghi-magnifica-s-smart-feb2533.pdf",
+          "page": 15,
+          "score": 0.03149801587301587,
+          "semantic_score": 0.5909022165046018,
+          "bm25_score": 22.443422977179573,
+          "rrf_score": 0.03149801587301587,
+          "dense_rank": 3,
+          "bm25_rank": 4,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "joué vers l'extérieur ; 9. Fermer le volet infuseur ; 10. Réinsérer le réservoir d’ eau. 17. DÉTARTRAGE Détartrer la machine quand le voyant clignote sur le panneau de contrôle . Attention ! • Avant l'utilisation, lire l…"
+        },
+        {
+          "rank": 4,
+          "source": "mode-emploi-delonghi-magnifica-s-smart-feb2533.pdf",
+          "page": 13,
+          "score": 0.029083245521601686,
+          "semantic_score": 0.57832353277672,
+          "bm25_score": 16.061053044187346,
+          "rrf_score": 0.029083245521601686,
+          "dense_rank": 5,
+          "bm25_rank": 13,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "matiques De'Longhi, il n'est pas nécessaire d'utiliser d'ad- juvants chimiques pour le nettoyage de la machine. • Aucune partie de l'appareil ne peut être lavée au lave-vais- selle, à l’ exception de la grille égouttoir*…"
+        },
+        {
+          "rank": 5,
+          "source": "mode-emploi-delonghi-magnifica-s-smart-feb2533.pdf",
+          "page": 13,
+          "score": 0.028484848484848488,
+          "semantic_score": 0.5592254901676478,
+          "bm25_score": 15.632508591795403,
+          "rrf_score": 0.028484848484848488,
+          "dense_rank": 6,
+          "bm25_rank": 15,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "13 Nota Bene ! Si la modalité \" Économie d’ énergie \" est activée, la distribu- tion d'eau chaude et de vapeur pourrait demander quelques secondes d’attente. 16. NETTOYAGE 16.1 Nettoyage de la machine Les pièces suivante…"
+        }
+      ]
+    },
+    {
+      "id": "Q04",
+      "question": "Dans quel sens faut-il régler le moulin lorsque le café coule trop lentement ou ne coule pas du tout ?",
+      "rewritten_query": "Réglage du moulin à café en cas de débit trop lent ou d'obstruction du flux.",
+      "search_query": "Dans quel sens faut-il régler le moulin lorsque le café coule trop lentement ou ne coule pas du tout ? Réglage du moulin à café en cas de débit trop lent ou d'obstruction du flux.",
+      "retrieval_mode": "hybrid_rewrite",
+      "expected_document": "mode-emploi-delonghi-magnifica-s-smart-feb2533.pdf",
+      "expected_pages": [
+        9
+      ],
+      "first_relevant_rank": 1,
+      "hits": {
+        "hit@1": true,
+        "hit@3": true,
+        "hit@5": true
+      },
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "source": "mode-emploi-delonghi-magnifica-s-smart-feb2533.pdf",
+          "page": 9,
+          "score": 0.03278688524590164,
+          "semantic_score": 0.6877420524582978,
+          "bm25_score": 38.56125189407699,
+          "rrf_score": 0.03278688524590164,
+          "dense_rank": 1,
+          "bm25_rank": 1,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "du bouton. • Veillez à ne pas trop tourner vers le MAX, sinon vous ris- quez de recevoir une distribution trop lente (au goutte-à- goutte), surtout lorsque deux tasses de café sont néces- saires en même temps. 12.2 Régla…"
+        },
+        {
+          "rank": 2,
+          "source": "mode-emploi-delonghi-magnifica-s-smart-feb2533.pdf",
+          "page": 20,
+          "score": 0.03225806451612903,
+          "semantic_score": 0.683505988992872,
+          "bm25_score": 35.87606340809997,
+          "rrf_score": 0.03225806451612903,
+          "dense_rank": 2,
+          "bm25_rank": 2,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "20 PROBLÈME CAUSE POSSIBLE SOLUTION Le café est trop liquide ou n'a pas assez de crème. Le café est moulu trop grossièrement. Tourner le bouton de réglage de la mou- ture (A5) d'un cran vers le numéro 1 dans le sens inve…"
+        },
+        {
+          "rank": 3,
+          "source": "mode-emploi-delonghi-magnifica-s-smart-feb2533.pdf",
+          "page": 18,
+          "score": 0.03149801587301587,
+          "semantic_score": 0.6678137747425908,
+          "bm25_score": 28.603843386247405,
+          "rrf_score": 0.03149801587301587,
+          "dense_rank": 3,
+          "bm25_rank": 4,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "ton de réglage de la mouture (A5) (fig. 13) d'un cran vers le chiffre 7 dans le sens des aiguilles d'une montre pendant le fonctionnement du moulin à café. Si après avoir fait au moins 2 cafés, la distribution est encore…"
+        },
+        {
+          "rank": 4,
+          "source": "mode-emploi-delonghi-magnifica-s-smart-feb2533.pdf",
+          "page": 18,
+          "score": 0.031024531024531024,
+          "semantic_score": 0.593850370464131,
+          "bm25_score": 29.58547343771907,
+          "rrf_score": 0.031024531024531024,
+          "dense_rank": 6,
+          "bm25_rank": 3,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "18 VOYANTS VISUALISÉS CAUSE POSSIBLE SOLUTION FIXE Le réservoir (A7) n’ est pas inséré ou n’ est pas bien inséré Insérer correctement le réservoir, en l'enfonçant à fond jusqu'à son accrochage. CLIGNOTANT Le tiroir à mar…"
+        },
+        {
+          "rank": 5,
+          "source": "mode-emploi-delonghi-magnifica-s-smart-feb2533.pdf",
+          "page": 9,
+          "score": 0.031009615384615385,
+          "semantic_score": 0.5967324579117321,
+          "bm25_score": 27.303600470179177,
+          "rrf_score": 0.031009615384615385,
+          "dense_rank": 4,
+          "bm25_rank": 5,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "Nota Bene ! • Pour des périodes d'inutilisation supérieures à 3-4 jours, il est vivement conseillé d'effectuer, après avoir allumé la machine, 2/3 rinçages avant de l'utiliser ; • Il est tout à fait normal, après avoir e…"
+        }
+      ]
+    },
+    {
+      "id": "Q05",
+      "question": "À quelle hauteur doit être placé le raccord du tuyau d’évacuation du lave-vaisselle Indesit ?",
+      "rewritten_query": "Hauteur de montage du raccord de vidange pour lave-vaisselle Indesit.",
+      "search_query": "À quelle hauteur doit être placé le raccord du tuyau d’évacuation du lave-vaisselle Indesit ? Hauteur de montage du raccord de vidange pour lave-vaisselle Indesit.",
+      "retrieval_mode": "hybrid_rewrite",
+      "expected_document": "mode-emploi-TDFP57BP96EU-Lave-vaisselle-INDESIT.pdf",
+      "expected_pages": [
+        7
+      ],
+      "first_relevant_rank": 1,
+      "hits": {
+        "hit@1": true,
+        "hit@3": true,
+        "hit@5": true
+      },
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "source": "mode-emploi-TDFP57BP96EU-Lave-vaisselle-INDESIT.pdf",
+          "page": 7,
+          "score": 0.03278688524590164,
+          "semantic_score": 0.6237327536043088,
+          "bm25_score": 31.35733521137681,
+          "rrf_score": 0.03278688524590164,
+          "dense_rank": 1,
+          "bm25_rank": 1,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "autrement le lave-vaisselle risque de ne pas foncti onner correctement. Faire attention à ce qu'il n'y ait ni pliures ni étranglements au niveau du tuyau. Raccordement du tuyau d’évacuation de l’eau Raccorder le tuyau d’…"
+        },
+        {
+          "rank": 2,
+          "source": "mode-emploi-TDFP57BP96EU-Lave-vaisselle-INDESIT.pdf",
+          "page": 7,
+          "score": 0.03200204813108039,
+          "semantic_score": 0.5871849796817084,
+          "bm25_score": 27.086799480328306,
+          "rrf_score": 0.03200204813108039,
+          "dense_rank": 3,
+          "bm25_rank": 2,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "FR 11 Installation En cas de déménagement, transporter l’appareil verticalement ; si besoin est, l’incliner sur le dos. Raccordements hydrauliques L’adaptation des installations de plomberie de l’installation doit être e…"
+        },
+        {
+          "rank": 3,
+          "source": "mode-emploi-TDFP57BP96EU-Lave-vaisselle-INDESIT.pdf",
+          "page": 7,
+          "score": 0.031754032258064516,
+          "semantic_score": 0.5966737352347646,
+          "bm25_score": 17.67670266484659,
+          "rrf_score": 0.031754032258064516,
+          "dense_rank": 2,
+          "bm25_rank": 4,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "Le câble ne doit être ni plié ni trop écrasé. Afin d’éviter tout danger, faire changer le cordon d’alimentation abîmé, par le fabricant ou par son service après-vente. (Voir Assistance) 1RXV\u0003GpFOLQRQV\u0003WRXWH\u0003UHVSRQVDELOLW…"
+        },
+        {
+          "rank": 4,
+          "source": "mode-emploi-TDFP57BP96EU-Lave-vaisselle-INDESIT.pdf",
+          "page": 11,
+          "score": 0.029857397504456328,
+          "semantic_score": 0.527690000945785,
+          "bm25_score": 16.522644378336672,
+          "rrf_score": 0.029857397504456328,
+          "dense_rank": 8,
+          "bm25_rank": 6,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "être rangés, de préférence. dans le panier supérieur et placés de manière à ce qu'ils ne risquent pas de se déplacer. Après avoir chargé le lave-vaisselle, s’assurer que les bras de lavage tournent librement. Panier infé…"
+        },
+        {
+          "rank": 5,
+          "source": "mode-emploi-TDFP57BP96EU-Lave-vaisselle-INDESIT.pdf",
+          "page": 7,
+          "score": 0.02946912242686891,
+          "semantic_score": 0.5520059252764625,
+          "bm25_score": 14.109566412556687,
+          "rrf_score": 0.02946912242686891,
+          "dense_rank": 5,
+          "bm25_rank": 11,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "(voir feuille de montage). 4*. Pour régler la hauteur du pied arrière, agir sur la douille rouge à six pans située dans la partie avant du lav e- vaisselle, en bas et au milieu, à l’aide d’une clé mâle à six pans, ouvert…"
+        }
+      ]
+    },
+    {
+      "id": "Q06",
+      "question": "Quelle plage de pression d’alimentation en eau est acceptée par le lave-vaisselle TDFP 57BP96 ?",
+      "rewritten_query": "Plage de pression d'alimentation en eau admissible pour le lave-vaisselle TDFP 57BP96.",
+      "search_query": "Quelle plage de pression d’alimentation en eau est acceptée par le lave-vaisselle TDFP 57BP96 ? Plage de pression d'alimentation en eau admissible pour le lave-vaisselle TDFP 57BP96.",
+      "retrieval_mode": "hybrid_rewrite",
+      "expected_document": "mode-emploi-TDFP57BP96EU-Lave-vaisselle-INDESIT.pdf",
+      "expected_pages": [
+        8
+      ],
+      "first_relevant_rank": 1,
+      "hits": {
+        "hit@1": true,
+        "hit@3": true,
+        "hit@5": true
+      },
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "source": "mode-emploi-TDFP57BP96EU-Lave-vaisselle-INDESIT.pdf",
+          "page": 8,
+          "score": 0.03252247488101534,
+          "semantic_score": 0.5669895990836631,
+          "bm25_score": 15.7535550080022,
+          "rrf_score": 0.03252247488101534,
+          "dense_rank": 2,
+          "bm25_rank": 1,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "12 FR Caractéristiques techniques Dimensions ODUJHXU\u0003\u0019\u0013\u0003FP KDXWHXU\u0003\u001b\u0018\u0003FP SURIRQGHXU\u0003\u0019\u0013\u0003FP Capacité 14 \u0003FRXYHUWV\u0003VWDQGDUG Pression eau d’alimentation \u0013\u000f\u0013\u0018\u0003·\u0003\u0014\u000303D\u0003 \u0013\u000f\u0018\u0003·\u0003\u0014\u0013\u0003EDU \u001a\u000f\u0015\u0018\u0003±\u0003\u0014\u0017\u0018\u0003SVL Tension d’alimentation Voir é…"
+        },
+        {
+          "rank": 2,
+          "source": "mode-emploi-TDFP57BP96EU-Lave-vaisselle-INDESIT.pdf",
+          "page": 7,
+          "score": 0.03125,
+          "semantic_score": 0.5587539331580771,
+          "bm25_score": 12.441193131829891,
+          "rrf_score": 0.03125,
+          "dense_rank": 4,
+          "bm25_rank": 4,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "ATTENTION : TENSION DANGEREUSE ! Il ne faut en aucun cas couper le tuyau d’amenée de l’eau car il contient des parties sous tension. Raccordement électrique Avant de brancher la fiche dans la prise de courant, s'assurer …"
+        },
+        {
+          "rank": 3,
+          "source": "mode-emploi-TDFP57BP96EU-Lave-vaisselle-INDESIT.pdf",
+          "page": 2,
+          "score": 0.030834914611005692,
+          "semantic_score": 0.5386797382288417,
+          "bm25_score": 14.142441332129557,
+          "rrf_score": 0.030834914611005692,
+          "dense_rank": 8,
+          "bm25_rank": 2,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "PT Português Instruções de uso MÁQUINA DE LAVAR LOUÇA - Índice Instruções de uso, 1 Precauções e conselhos, 6-7 Ficha do produto, 9 Assistência, 10 Instalação, 44-45 Descrição do aparelho, 46 Sal, regenerador e abrilhant…"
+        },
+        {
+          "rank": 4,
+          "source": "mode-emploi-TDFP57BP96EU-Lave-vaisselle-INDESIT.pdf",
+          "page": 7,
+          "score": 0.030798389007344232,
+          "semantic_score": 0.5387305408695725,
+          "bm25_score": 13.534978034722345,
+          "rrf_score": 0.030798389007344232,
+          "dense_rank": 7,
+          "bm25_rank": 3,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "FR 11 Installation En cas de déménagement, transporter l’appareil verticalement ; si besoin est, l’incliner sur le dos. Raccordements hydrauliques L’adaptation des installations de plomberie de l’installation doit être e…"
+        },
+        {
+          "rank": 5,
+          "source": "mode-emploi-TDFP57BP96EU-Lave-vaisselle-INDESIT.pdf",
+          "page": 7,
+          "score": 0.029857397504456328,
+          "semantic_score": 0.5450428572885849,
+          "bm25_score": 11.368874323014392,
+          "rrf_score": 0.029857397504456328,
+          "dense_rank": 6,
+          "bm25_rank": 8,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "Le câble ne doit être ni plié ni trop écrasé. Afin d’éviter tout danger, faire changer le cordon d’alimentation abîmé, par le fabricant ou par son service après-vente. (Voir Assistance) 1RXV\u0003GpFOLQRQV\u0003WRXWH\u0003UHVSRQVDELOLW…"
+        }
+      ]
+    },
+    {
+      "id": "Q07",
+      "question": "À quelle fréquence faut-il nettoyer les filtres à graisse de la hotte IKEA, et peuvent-ils passer au lave-vaisselle ?",
+      "rewritten_query": "Fréquence de nettoyage et compatibilité lave-vaisselle des filtres à graisse pour hotte IKEA.",
+      "search_query": "À quelle fréquence faut-il nettoyer les filtres à graisse de la hotte IKEA, et peuvent-ils passer au lave-vaisselle ? Fréquence de nettoyage et compatibilité lave-vaisselle des filtres à graisse pour hotte IKEA.",
+      "retrieval_mode": "hybrid_rewrite",
+      "expected_document": "Notice-NYTTIG-FIL-500-IKEA.pdf",
+      "expected_pages": [
+        37
+      ],
+      "first_relevant_rank": 1,
+      "hits": {
+        "hit@1": true,
+        "hit@3": true,
+        "hit@5": true
+      },
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "source": "Notice-NYTTIG-FIL-500-IKEA.pdf",
+          "page": 37,
+          "score": 0.03278688524590164,
+          "semantic_score": 0.5861931880875002,
+          "bm25_score": 26.999477694007574,
+          "rrf_score": 0.03278688524590164,
+          "dense_rank": 1,
+          "bm25_rank": 1,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "37 FRANÇAIS Ampoule Puissance (W) Culot Tension (V) Dimensions (mm) Code ILCOS 4 E14 220-240 107 x 37 DRBB/F-4-220- 240-E14-35/100 Filtres à graisse Nettoyez ou remplacez les filtres en continu aux périodicités indiquées…"
+        },
+        {
+          "rank": 2,
+          "source": "Notice-NYTTIG-FIL-500-IKEA.pdf",
+          "page": 36,
+          "score": 0.0315136476426799,
+          "semantic_score": 0.5793282378979727,
+          "bm25_score": 15.918750702592053,
+          "rrf_score": 0.0315136476426799,
+          "dense_rank": 2,
+          "bm25_rank": 5,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "36 FRANÇAIS Nettoyage et entretien Éteindre ou débrancher l’appareil du secteur, avant d’effectuer toute opé- ration de nettoyage ou d’entretien. IMPORTANT Nettoyez la hotte avec un chiffon humide et un détergent liquide…"
+        },
+        {
+          "rank": 3,
+          "source": "mode-emploi-TDFP57BP96EU-Lave-vaisselle-INDESIT.pdf",
+          "page": 16,
+          "score": 0.030117753623188408,
+          "semantic_score": 0.5594170853654746,
+          "bm25_score": 15.952924159271268,
+          "rrf_score": 0.030117753623188408,
+          "dense_rank": 9,
+          "bm25_rank": 4,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "Faute de quoi, un engorgement pourrait se produire au point d’arrivée de l’eau et endommager le lave-vaisselle . 1HWWR\\HU\u000f\u0003SpULRGLTXHPHQW\u0003OH\u0003ILOWUH\u0003G©HQWUpH\u0003GH\u0003O©HDX\u0003VLWXp\u0003j\u0003 la sortie du ro binet. - Fermer le robinet de…"
+        },
+        {
+          "rank": 4,
+          "source": "Notice-NYTTIG-FIL-500-IKEA.pdf",
+          "page": 36,
+          "score": 0.02878726010616578,
+          "semantic_score": 0.5450163337118977,
+          "bm25_score": 19.09947167693207,
+          "rrf_score": 0.02878726010616578,
+          "dense_rank": 19,
+          "bm25_rank": 2,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "le manuel de l’utilisateur et les instructions de montage de votre four). • Actionnez la hotte à la vitesse minimum lorsque vous commencez à cuisiner et laissez-la en fonction pendant quelques minutes après la fin de la …"
+        },
+        {
+          "rank": 5,
+          "source": "Notice-NYTTIG-FIL-500-IKEA.pdf",
+          "page": 30,
+          "score": 0.02786377708978328,
+          "semantic_score": 0.5510292425026896,
+          "bm25_score": 14.175125002578731,
+          "rrf_score": 0.02786377708978328,
+          "dense_rank": 16,
+          "bm25_rank": 8,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "spécifient une distance supérieure à celle indiquée ci-dessus, veuillez impérativement en tenir compte. • Assurez-vous que la tension du secteur correspond à celle indiquée sur la plaque des caractéristiques apposée à l’…"
+        }
+      ]
+    },
+    {
+      "id": "Q08",
+      "question": "Quelle distance minimale faut-il respecter entre la hotte IKEA et une plaque au gaz, puis une plaque électrique ?",
+      "rewritten_query": "Distance de sécurité minimale entre hotte IKEA et plan de cuisson à gaz ou électrique.",
+      "search_query": "Quelle distance minimale faut-il respecter entre la hotte IKEA et une plaque au gaz, puis une plaque électrique ? Distance de sécurité minimale entre hotte IKEA et plan de cuisson à gaz ou électrique.",
+      "retrieval_mode": "hybrid_rewrite",
+      "expected_document": "Notice-NYTTIG-FIL-500-IKEA.pdf",
+      "expected_pages": [
+        39,
+        30
+      ],
+      "first_relevant_rank": 1,
+      "hits": {
+        "hit@1": true,
+        "hit@3": true,
+        "hit@5": true
+      },
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "source": "Notice-NYTTIG-FIL-500-IKEA.pdf",
+          "page": 30,
+          "score": 0.03278688524590164,
+          "semantic_score": 0.6345764800245823,
+          "bm25_score": 43.709682018884536,
+          "rrf_score": 0.03278688524590164,
+          "dense_rank": 1,
+          "bm25_rank": 1,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "30 FRANÇAIS Pour votre sécurité et pour garantir le fonctionnement correct de l’appareil, veuillez lire attentivement ce manuel avant d’installer et de mettre en fonction l’appareil. Toujours conserver ces instructions a…"
+        },
+        {
+          "rank": 2,
+          "source": "Notice-NYTTIG-FIL-500-IKEA.pdf",
+          "page": 30,
+          "score": 0.03200204813108039,
+          "semantic_score": 0.616526466915937,
+          "bm25_score": 22.01898837499475,
+          "rrf_score": 0.03200204813108039,
+          "dense_rank": 2,
+          "bm25_rank": 3,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "spécifient une distance supérieure à celle indiquée ci-dessus, veuillez impérativement en tenir compte. • Assurez-vous que la tension du secteur correspond à celle indiquée sur la plaque des caractéristiques apposée à l’…"
+        },
+        {
+          "rank": 3,
+          "source": "Notice-NYTTIG-FIL-500-IKEA.pdf",
+          "page": 32,
+          "score": 0.027692895339954164,
+          "semantic_score": 0.553080835199659,
+          "bm25_score": 16.78858917024157,
+          "rrf_score": 0.027692895339954164,
+          "dense_rank": 17,
+          "bm25_rank": 8,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "moins qu’ils ne soient surveillés. • Surveillez les enfants. S’assurer qu’ils ne jouent pas avec l’appareil. • Cet appareil n’est pas destiné à être utilisé par des personnes (enfants compris) dont les capacités physique…"
+        },
+        {
+          "rank": 4,
+          "source": "Notice-NYTTIG-FIL-500-IKEA.pdf",
+          "page": 41,
+          "score": 0.026171741361614778,
+          "semantic_score": 0.5517258797245832,
+          "bm25_score": 14.102940611477628,
+          "rrf_score": 0.026171741361614778,
+          "dense_rank": 19,
+          "bm25_rank": 14,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "41 FRANÇAIS Aspects environnementaux GARANTIE IKEA Entretien • Le symbole apposé sur l’appareil ou sur son emballage indique que ce produit ne peut pas être éliminé comme une ordure ménagère normale. Cet appareil doit êt…"
+        },
+        {
+          "rank": 5,
+          "source": "Notice-NYTTIG-FIL-500-IKEA.pdf",
+          "page": 43,
+          "score": 0.026153846153846153,
+          "semantic_score": 0.5529132703243763,
+          "bm25_score": 13.957900513880011,
+          "rrf_score": 0.026153846153846153,
+          "dense_rank": 18,
+          "bm25_rank": 15,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "43 FRANÇAIS portés dans un autre pays de l’Union européenne, les services seront fournis dans le cadre des conditions de garantie valables dans ce dernier. L’obligation de fournir des services dans le cadre de la garanti…"
+        }
+      ]
+    },
+    {
+      "id": "Q09",
+      "question": "Quelle quantité de média filtrant faut-il mettre dans la pompe SF70220-2 ?",
+      "rewritten_query": "Quantité de média filtrant pour la pompe SF70220-2 (volume, capacité).",
+      "search_query": "Quelle quantité de média filtrant faut-il mettre dans la pompe SF70220-2 ? Quantité de média filtrant pour la pompe SF70220-2 (volume, capacité).",
+      "retrieval_mode": "hybrid_rewrite",
+      "expected_document": "Pompe piscine avec filtre sable.pdf",
+      "expected_pages": [
+        9
+      ],
+      "first_relevant_rank": 1,
+      "hits": {
+        "hit@1": true,
+        "hit@3": true,
+        "hit@5": true
+      },
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "source": "Pompe piscine avec filtre sable.pdf",
+          "page": 9,
+          "score": 0.03278688524590164,
+          "semantic_score": 0.6239376934625434,
+          "bm25_score": 24.544299006352915,
+          "rrf_score": 0.03278688524590164,
+          "dense_rank": 1,
+          "bm25_rank": 1,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "Pour une utilisation d’interieur. Installation du pré-filtre de la pompe : 1. Sortez le filtre à sable et ses accessoires de leur emballage et vérifiez qu’il n’y a aucun dommage visible. 2. Dévissez le couvercle du pré-f…"
+        },
+        {
+          "rank": 2,
+          "source": "Pompe piscine avec filtre sable.pdf",
+          "page": 9,
+          "score": 0.03200204813108039,
+          "semantic_score": 0.5543653337155718,
+          "bm25_score": 19.95455182848471,
+          "rrf_score": 0.03200204813108039,
+          "dense_rank": 2,
+          "bm25_rank": 3,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "Quantité recommandée de média filtrant: Sable de silice n° 20 23 Kg ou verre filtrant 16 Kg. Sable de silice n° 20 35 Kg ou verre filtrant 25 Kg. Sable de silice n° 20 55 Kg ou verre filtrant 38 Kg. Média filtrant recomm…"
+        },
+        {
+          "rank": 3,
+          "source": "Pompe piscine avec filtre sable.pdf",
+          "page": 16,
+          "score": 0.03200204813108039,
+          "semantic_score": 0.5467017821720749,
+          "bm25_score": 21.16178608246269,
+          "rrf_score": 0.03200204813108039,
+          "dense_rank": 3,
+          "bm25_rank": 2,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "6. Mettre en marche la pompe pendant environ une minute pour remettre de niveau le sable après un « CONTRE-LAVAGE ». 7. Eteindre la pompe, tourner la vanne sur la position “FILTRATION” (voir dessin 23). 8. Mettre en marc…"
+        },
+        {
+          "rank": 4,
+          "source": "Pompe piscine avec filtre sable.pdf",
+          "page": 15,
+          "score": 0.02946912242686891,
+          "semantic_score": 0.524850836916238,
+          "bm25_score": 17.90711041922912,
+          "rrf_score": 0.02946912242686891,
+          "dense_rank": 11,
+          "bm25_rank": 5,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "• Ne branchez pas l'épurateur quand la piscine est utilisée. Ne débranchez pas ce produit lorsque vos mains sont humides. • Ne jamais utiliser ce produit au-delà de la pression indiquée sur la cuve. • Toujours éteindre l…"
+        },
+        {
+          "rank": 5,
+          "source": "Pompe piscine avec filtre sable.pdf",
+          "page": 11,
+          "score": 0.02854251012145749,
+          "semantic_score": 0.5413949118310836,
+          "bm25_score": 9.123534325160819,
+          "rrf_score": 0.02854251012145749,
+          "dense_rank": 5,
+          "bm25_rank": 16,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "342 FR CONSERVEZ CES INSTRUCTIONS (342FR) SAND FILTER PUMP FRENCH 7.5” X 10.3” PANTONE 295U 08/27/2018 Français Page 11 INSTRUCTIONS DE MONTAGE (suite) Remplissage du sable : IMPORTANT : Utilisez de la silice n°20 ou du …"
+        }
+      ]
+    },
+    {
+      "id": "Q10",
+      "question": "Pendant combien de temps le filtre SF60220-2 doit-il fonctionner pour une piscine de 37 850 litres ?",
+      "rewritten_query": "Durée d'utilisation du filtre SF60220-2 pour un bassin de 37 850 litres (autonomie, cycle de fonctionnement).",
+      "search_query": "Pendant combien de temps le filtre SF60220-2 doit-il fonctionner pour une piscine de 37 850 litres ? Durée d'utilisation du filtre SF60220-2 pour un bassin de 37 850 litres (autonomie, cycle de fonctionnement).",
+      "retrieval_mode": "hybrid_rewrite",
+      "expected_document": "Pompe piscine avec filtre sable.pdf",
+      "expected_pages": [
+        19
+      ],
+      "first_relevant_rank": 1,
+      "hits": {
+        "hit@1": true,
+        "hit@3": true,
+        "hit@5": true
+      },
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "source": "Pompe piscine avec filtre sable.pdf",
+          "page": 19,
+          "score": 0.03252247488101534,
+          "semantic_score": 0.6385713602776503,
+          "bm25_score": 29.620854039797475,
+          "rrf_score": 0.03252247488101534,
+          "dense_rank": 1,
+          "bm25_rank": 2,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "342 FR CONSERVEZ CES INSTRUCTIONS (342FR) SAND FILTER PUMP FRENCH 7.5” X 10.3” PANTONE 295U 08/27/2018 Français Page 19 PISCINES D'AUTRES MARQUES DURÉE DES OPÉRATIONS Capacité d’eau Durée de fonctionnement du filtre à sa…"
+        },
+        {
+          "rank": 2,
+          "source": "Pompe piscine avec filtre sable.pdf",
+          "page": 18,
+          "score": 0.03252247488101534,
+          "semantic_score": 0.6058447357331125,
+          "bm25_score": 33.32529814176158,
+          "rrf_score": 0.03252247488101534,
+          "dense_rank": 2,
+          "bm25_rank": 1,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "342 FR CONSERVEZ CES INSTRUCTIONS (342FR) SAND FILTER PUMP FRENCH 7.5” X 10.3” PANTONE 295U 08/27/2018 Français Page 18 PISCINES INTEX DURÉE DES OPÉRATIONS (SANS ECOSTERILISATEUR AU SEL KRYSTAL CLEAR INTEX) Ce tableau re…"
+        },
+        {
+          "rank": 3,
+          "source": "Pompe piscine avec filtre sable.pdf",
+          "page": 17,
+          "score": 0.031009615384615385,
+          "semantic_score": 0.5524173504295034,
+          "bm25_score": 23.61326560847006,
+          "rrf_score": 0.031009615384615385,
+          "dense_rank": 5,
+          "bm25_rank": 4,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "342 FR CONSERVEZ CES INSTRUCTIONS (342FR) SAND FILTER PUMP FRENCH 7.5” X 10.3” PANTONE 295U 08/27/2018 Français Page 17 INSTRUCTIONS D’UTILISATION (suite) Fonctionnement du système en mode “TIMER” ou manuel : Pour faire …"
+        },
+        {
+          "rank": 4,
+          "source": "Pompe piscine avec filtre sable.pdf",
+          "page": 17,
+          "score": 0.029631255487269532,
+          "semantic_score": 0.5426020747915115,
+          "bm25_score": 17.678223197776923,
+          "rrf_score": 0.029631255487269532,
+          "dense_rank": 8,
+          "bm25_rank": 7,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "filtration à sable à la même heure chaque jour pour le nombre d’heures que vous avez réglé. 3. Verrouillez le panneau de contrôle : Une fois la valeur désirée affichée, appuyez sur la touche jusqu’à ce que vous entendiez…"
+        },
+        {
+          "rank": 5,
+          "source": "Pompe piscine avec filtre sable.pdf",
+          "page": 6,
+          "score": 0.027417840375586856,
+          "semantic_score": 0.5279605430336429,
+          "bm25_score": 15.1736930845359,
+          "rrf_score": 0.027417840375586856,
+          "dense_rank": 15,
+          "bm25_rank": 11,
+          "retrieval_mode": "hybrid_rewrite",
+          "preview": "36 JOINT INTERNE DU MOTEUR DU FILTRE À SABLE 2 11457 11457 11457 37 CUVE DU FILTRE Á SABLE 1 12712 12713 12714 38 BASE DU FILTRE À SABLE 1 12716 12717 12718 39 BOITIER DU PRÉ-FILTRE 1 12100 12099 12099 40* GRILLE 1 12198…"
+        }
+      ]
+    }
+  ]
+}

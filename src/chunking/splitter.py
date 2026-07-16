@@ -1,47 +1,63 @@
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-from app.config import CHUNK_SIZE, CHUNK_OVERLAP
+from src.config import CHUNK_SIZE, CHUNK_OVERLAP, MIN_CHUNK_LENGTH
+from src.ingestion.text_quality import assess_text_quality
 
 
 def split_pages_into_chunks(pages: list[dict]) -> list[dict]:
-    """
-    Découpe les pages PDF en chunks avec metadata.
+    """Découpe les pages en chunks et conserve leurs métadonnées qualité.
+
+    Un chunk partiellement dégradé reste indexé : son statut est informatif et
+    n'est pas utilisé pour pénaliser son score de retrieval.
     """
 
-    # Splitter
     splitter = RecursiveCharacterTextSplitter(
         chunk_size=CHUNK_SIZE,
         chunk_overlap=CHUNK_OVERLAP,
     )
 
-    # Stockage chunks
-    chunks = []
+    chunks: list[dict] = []
 
-    # Parcours pages
     for page in pages:
-
-        # Texte page
         text = page["text"]
-
-        # Metadata page
         metadata = page["metadata"]
-
-        # Découpe texte
         split_texts = splitter.split_text(text)
 
-        # Parcours chunks
-        for chunk_index, chunk_text in enumerate(split_texts):
+        kept_chunk_index = 0
+        for chunk_text in split_texts:
+            cleaned = chunk_text.strip()
+            if len(cleaned) < MIN_CHUNK_LENGTH:
+                continue
 
-            # Ajout chunk
+            chunk_quality = assess_text_quality(cleaned)
+            page_status = metadata.get("text_quality_status", "clean")
+            chunk_status = chunk_quality.status
+
+            # Une page valide ne produit jamais un chunk supprimé ici : un
+            # résultat "rejected" au niveau chunk devient "degraded" afin de
+            # conserver l'information sémantique éventuellement exploitable.
+            if chunk_status == "rejected":
+                chunk_status = "degraded"
+
+            final_status = (
+                "degraded"
+                if "degraded" in {page_status, chunk_status}
+                else "clean"
+            )
+
             chunks.append(
                 {
-                    "text": chunk_text,
+                    "text": cleaned,
                     "metadata": {
                         **metadata,
-                        "chunk_id": chunk_index,
+                        "chunk_id": kept_chunk_index,
+                        "chunk_length": len(cleaned),
+                        "chunk_quality_status": final_status,
+                        "chunk_quality_score": chunk_quality.score,
+                        "chunk_quality_reason": chunk_quality.reason,
                     },
                 }
             )
+            kept_chunk_index += 1
 
-    # Résultat
     return chunks

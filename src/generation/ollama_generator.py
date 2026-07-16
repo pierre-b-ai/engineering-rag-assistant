@@ -1,8 +1,7 @@
 import requests
 
 
-OLLAMA_URL = "http://localhost:11434/api/generate"
-OLLAMA_MODEL = "llama3.1:8b"
+from src.config import OLLAMA_URL, OLLAMA_MODEL
 
 
 def build_context(chunks: list[dict]) -> str:

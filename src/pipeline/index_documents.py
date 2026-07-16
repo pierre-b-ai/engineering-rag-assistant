@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from app.config import RAW_DATA_DIR
+from src.config import RAW_DATA_DIR
 from src.ingestion.pdf_loader import load_pdf_text
 from src.chunking.splitter import split_pages_into_chunks
 from src.vectorstore.chroma_store import build_vector_store

@@ -1,58 +1,61 @@
+"""Réécriture déterministe des requêtes avec un modèle local Ollama."""
+
+from __future__ import annotations
+
 import requests
 
+from src.config import OLLAMA_URL, QUERY_REWRITE_MODEL
 
-OLLAMA_URL = "http://localhost:11434/api/generate"
-OLLAMA_MODEL = "dolphin-mixtral:latest"
+# Une seed fixe rend les évaluations reproductibles. Elle n'interdit pas toute
+# variation entre versions d'Ollama ou du modèle, mais stabilise un environnement
+# donné pour un prompt identique.
+QUERY_REWRITE_SEED = 42
 
 
 def rewrite_query_for_retrieval(query: str) -> str:
-    """
-    Reformule une question utilisateur pour améliorer la recherche documentaire.
-
-    Objectif :
-    - ajouter des synonymes utiles ;
-    - expliciter l'intention ;
-    - ne pas répondre à la question ;
-    - rester court.
-    """
+    """Produit une reformulation courte adaptée à la recherche sémantique."""
 
     prompt = f"""
-Tu reformules une question utilisateur pour une recherche documentaire RAG.
+Reformule la question suivante en une phrase courte et naturelle en français,
+optimisée pour une recherche sémantique dans des notices techniques.
 
 Règles strictes :
-- Réponds uniquement en français.
-- Ne réponds pas à la question.
-- Ne donne aucune explication.
-- Ne produis pas de syntaxe booléenne : pas de AND, OR, guillemets ou parenthèses.
-- Garde les mots importants de la question originale.
-- Ajoute quelques synonymes techniques ou formulations proches susceptibles d'apparaître dans une notice technique.
-- N'invente aucune valeur chiffrée.
-- Retourne une seule ligne courte.
+- conserve exactement les noms de modèles, références, codes, nombres et unités ;
+- conserve le sens et les relations exprimées dans la question ;
+- ajoute au maximum deux ou trois synonymes techniques utiles ;
+- n'invente aucune information ni valeur chiffrée ;
+- ne réponds pas à la question ;
+- réponds avec une seule phrase, sans explication, liste ni guillemets.
 
-
-Question utilisateur :
+Question originale :
 {query}
 
-Requête enrichie :
+Requête reformulée :
 """
 
     response = requests.post(
         OLLAMA_URL,
         json={
-            "model": OLLAMA_MODEL,
+            "model": QUERY_REWRITE_MODEL,
             "prompt": prompt,
             "stream": False,
+            # Gemma consommait auparavant toute la limite de génération dans sa
+            # phase de raisonnement. Le rewrite ne nécessite pas cette phase.
+            "think": False,
             "options": {
                 "temperature": 0.0,
                 "top_p": 0.8,
-                "num_predict": 80,
+                "num_predict": 120,
+                "seed": QUERY_REWRITE_SEED,
             },
         },
         timeout=120,
     )
-
     response.raise_for_status()
 
-    rewritten_query = response.json()["response"].strip()
+    data = response.json()
+    rewritten_query = data.get("response", "").strip()
 
-    return rewritten_query
+    # Repli sûr : une panne ou une sortie vide ne doit jamais empêcher le
+    # retrieval. La question originale reste alors la requête de recherche.
+    return rewritten_query or query

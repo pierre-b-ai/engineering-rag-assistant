@@ -1,19 +1,8 @@
-# Engineering RAG Assistant — V0
+# Engineering RAG Assistant — V1.1
 
-A local Retrieval-Augmented Generation prototype designed to answer questions from engineering and technical PDF documents.
+A local Retrieval-Augmented Generation application designed to search, inspect and answer questions from engineering and technical PDF documents.
 
-The goal of this project is not to build a generic PDF chatbot, but to explore the core components of a document-grounded RAG pipeline:
-
-- PDF ingestion
-- text chunking
-- local embedding generation
-- vector search with ChromaDB
-- source-grounded retrieval
-- optional query rewriting
-- local LLM answer generation with Ollama
-- transparent retrieval debugging with source pages, chunk IDs and similarity scores
-
-This is a first working version intended as a portfolio project. The current focus is on building a clean and understandable RAG pipeline before adding more advanced retrieval methods such as BM25, hybrid search, reranking models and systematic evaluation.
+The project focuses on a transparent and testable RAG pipeline rather than a generic PDF chatbot. It combines incremental document indexing, dense and lexical retrieval, local LLM generation, chunk-level inspection and a small retrieval evaluation framework.
 
 ---
 
@@ -24,22 +13,165 @@ This is a first working version intended as a portfolio project. The current foc
 
 ---
 
+## What's new in V1.1
+
+V1.1 turns the first working prototype into a more structured retrieval experimentation platform.
+
+Main additions:
+
+- incremental PDF indexing
+- detection of new, modified, unchanged and deleted documents
+- page and chunk quality metadata
+- Chunk Explorer connected directly to ChromaDB
+- dense retrieval with BGE-M3
+- lexical retrieval with BM25
+- hybrid search with Reciprocal Rank Fusion (RRF)
+- deterministic local query rewriting with Ollama
+- comparison of four retrieval strategies
+- retrieval evaluation with Page Hit@k and Mean Reciprocal Rank
+- detailed JSON evaluation reports
+- unit tests for BM25 and RRF
+
+---
+
 ## Features
 
-- Index all PDF files stored in `data/raw`
+### Document ingestion and indexing
+
+- Index every PDF stored in `data/raw`
 - Extract text page by page
-- Split documents into overlapping chunks
-- Store embeddings in a persistent Chroma vector database
-- Retrieve the most relevant chunks for a user question
-- Display retrieved chunks with:
-  - source document
-  - page number
-  - chunk ID
-  - Chroma distance
-  - semantic score
-- Optional query rewriting to improve retrieval
-- Optional local answer generation with Ollama
-- Streamlit interface for quick testing and debugging
+- Ignore empty or rejected pages
+- Split pages into overlapping chunks
+- Store embeddings and metadata in persistent ChromaDB
+- Reindex incrementally instead of rebuilding the complete database
+- Detect:
+  - new documents
+  - modified documents
+  - unchanged documents
+  - deleted documents
+- Preserve page number, source filename, chunk ID and extraction metadata
+- Attach an informative quality status to each chunk
+
+### Retrieval
+
+Four retrieval strategies are available:
+
+1. Dense retrieval with BGE-M3
+2. Dense retrieval with deterministic query rewriting
+3. Hybrid retrieval with BGE-M3 + BM25 + RRF
+4. Hybrid retrieval with deterministic query rewriting
+
+The hybrid mode combines:
+
+```text
+Dense semantic retrieval
+        +
+BM25 lexical retrieval
+        ↓
+Reciprocal Rank Fusion
+        ↓
+Final ranked chunks
+```
+
+The two engines are fused from their ranks rather than from their raw scores, because Chroma distances and BM25 scores are not directly comparable.
+
+### Retrieval inspection
+
+For every retrieved chunk, the interface can display:
+
+- retrieval mode
+- source document
+- page number
+- chunk ID
+- extraction quality
+- Chroma distance
+- semantic score
+- dense rank
+- BM25 rank
+- BM25 score
+- RRF score
+
+### Chunk Explorer
+
+The Chunk Explorer reads ChromaDB directly and makes the indexed corpus inspectable.
+
+It supports filtering by:
+
+- document
+- page
+- quality status
+
+It also displays:
+
+- matching chunk count
+- clean chunk count
+- degraded chunk count
+- extraction method
+- quality reason
+- stored Chroma identifier
+- full chunk text
+
+### Local answer generation
+
+The application can generate answers with a local Ollama model.
+
+The generation prompt instructs the model to:
+
+- answer only from retrieved context
+- avoid unsupported assumptions
+- state when the answer is not available
+- cite source documents and pages
+
+### Query rewriting
+
+An optional local Ollama model rewrites the user question into a short retrieval-oriented sentence.
+
+The application keeps the original question and appends the rewritten query instead of replacing it:
+
+```text
+original question + rewritten query
+```
+
+The rewrite configuration uses:
+
+- `temperature = 0`
+- a fixed seed
+- disabled thinking mode
+- fallback to the original question if the model returns an empty response
+
+The feature remains experimental because a rewrite may improve or degrade retrieval depending on the query.
+
+---
+
+## Preliminary retrieval evaluation
+
+The project includes a small golden dataset:
+
+```text
+data/evaluation/rag_evaluation_questions.json
+```
+
+Current benchmark scope:
+
+- 10 manually verified questions
+- 5 technical PDF documents
+- relevance evaluated at document + page level
+- metrics:
+  - Page Hit@1
+  - Page Hit@3
+  - Page Hit@5
+  - Page MRR
+
+Best measured configuration on the current benchmark:
+
+| Retrieval strategy | Hit@1 | Hit@3 | Hit@5 | Page MRR |
+|---|---:|---:|---:|---:|
+| Hybrid BGE-M3 + BM25 + RRF | 90% | 90% | 90% | 0.900 |
+| Hybrid + query rewriting | 90% | 90% | 90% | 0.900 |
+
+These results are preliminary. With only 10 questions, one error changes a metric by 10 percentage points. The benchmark is therefore used to compare retrieval behaviour and identify failure cases, not to claim production-level performance.
+
+One observed case is particularly useful: hybrid retrieval improves most top rankings but can demote a page that dense retrieval had ranked correctly. The project intentionally keeps neutral RRF weights instead of tuning them to repair a single benchmark question.
 
 ---
 
@@ -51,7 +183,10 @@ This is a first working version intended as a portfolio project. The current foc
 - LangChain
 - ChromaDB
 - SentenceTransformers / Hugging Face embeddings
+- custom BM25 implementation
+- Reciprocal Rank Fusion
 - Ollama
+- pytest
 - python-dotenv
 
 Current embedding model:
@@ -60,17 +195,16 @@ Current embedding model:
 BAAI/bge-m3
 ```
 
-Current local generation model:
+Local generation and query rewriting models are configurable through a local `.env` file.
+
+Default models:
 
 ```text
-llama3.1:8b
+OLLAMA_MODEL=gemma4:12b
+QUERY_REWRITE_MODEL=gemma4:12b
 ```
 
-Current query rewriting model:
-
-```text
-dolphin-mixtral:latest
-```
+Any compatible model already available in Ollama can be selected without modifying the Python code. Retrieval-only mode does not require Ollama.
 
 ---
 
@@ -78,35 +212,51 @@ dolphin-mixtral:latest
 
 ```text
 .
-├── app/
-│   └── config.py
+├── assets/
+│   ├── demo1.png
+│   └── demo2.png
 ├── data/
+│   ├── evaluation/
+│   │   ├── rag_evaluation_questions.json
+│   │   └── retrieval_report_*.json
 │   ├── raw/
 │   │   └── PDF files to index
 │   └── vector_db/
 │       └── Local Chroma database
 ├── src/
+│   ├── config.py
 │   ├── chunking/
 │   │   └── splitter.py
 │   ├── embeddings/
 │   │   └── embedder.py
+│   ├── evaluation/
+│   │   ├── __init__.py
+│   │   └── evaluate_retrieval.py
 │   ├── generation/
 │   │   ├── ollama_generator.py
 │   │   └── query_rewriter.py
 │   ├── ingestion/
 │   │   └── pdf_loader.py
 │   ├── pipeline/
-│   │   └── index_documents.py
+│   │   └── indexing_pipeline.py
 │   ├── retrieval/
-│   │   ├── query_classifier.py
+│   │   ├── bm25_index.py
+│   │   ├── hybrid_fusion.py
 │   │   ├── reranker.py
 │   │   └── retriever.py
 │   └── vectorstore/
 │       └── chroma_store.py
+├── tests/
+│   ├── test_bm25_index.py
+│   └── test_hybrid_fusion.py
 ├── streamlit_app.py
 ├── requirements.txt
-└── .env.example
+├── .env.example
+├── .gitignore
+└── README.md
 ```
+
+The exact repository structure may evolve as the pipeline is modularized further.
 
 ---
 
@@ -119,38 +269,66 @@ git clone https://github.com/pierre-b-ai/engineering-rag-assistant.git
 cd engineering-rag-assistant
 ```
 
-Create and activate a virtual environment:
+Create and activate a virtual environment.
 
-```bash
+Windows PowerShell:
+
+```powershell
 python -m venv .venv
-.venv\Scripts\activate
+.venv\Scripts\Activate.ps1
 ```
 
 Install dependencies:
 
-```bash
+```powershell
 pip install -r requirements.txt
 ```
+
+Create your local configuration file from the public template:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+The command keeps `.env.example` and creates a separate local `.env` file with the same initial content.
+
+Edit `.env` to select models available on your machine:
+
+```env
+OLLAMA_URL=http://localhost:11434/api/generate
+OLLAMA_MODEL=gemma4:12b
+QUERY_REWRITE_MODEL=gemma4:12b
+```
+
+The `.env` file is local and must not be committed. The `.env.example` template is versioned so that every user knows which variables are supported.
 
 ---
 
 ## Ollama setup
 
-This project can generate answers with a local LLM through Ollama.
+Ollama is required only for:
 
-Install Ollama, then pull the local generation model:
+- local answer generation
+- optional query rewriting
 
-```bash
-ollama pull llama3.1:8b
+Dense and hybrid retrieval can be used without Ollama.
+
+Install Ollama, then pull the models selected in your `.env` file. With the default configuration:
+
+```powershell
+ollama pull gemma4:12b
 ```
 
-If you want to use the optional query rewriting feature:
+Another compatible local model can be selected without modifying the Python source code, for example:
 
-```bash
-ollama pull dolphin-mixtral:latest
+```env
+OLLAMA_MODEL=llama3.1:8b
+QUERY_REWRITE_MODEL=qwen3:8b
 ```
 
-Make sure Ollama is running locally:
+The selected models must already be installed in Ollama.
+
+Make sure Ollama is running locally. The default server address is:
 
 ```text
 http://localhost:11434
@@ -166,24 +344,47 @@ Place one or more PDF files inside:
 data/raw/
 ```
 
-Launch the Streamlit app:
+Launch the Streamlit application:
 
-```bash
+```powershell
 streamlit run streamlit_app.py
 ```
 
-In the interface:
+The interface contains three tabs.
 
-1. Click **Reindex PDFs from data/raw**
-2. Select an answer mode:
+### Search and answer
+
+1. Select an answer mode:
    - `Retrieval only`
    - `Local LLM`
    - `API LLM (coming soon)`
-3. Enter a question
-4. Select the number of chunks to retrieve
-5. Click **Search**
+2. Select a retrieval method:
+   - `Dense (BGE-M3)`
+   - `Hybrid (BGE-M3 + BM25/RRF)`
+3. Enable query rewriting when needed
+4. Enter a question
+5. Select the number of final chunks
+6. Click **Search**
 
-The app will display the retrieved chunks and, if `Local LLM` mode is selected, generate a grounded answer using the retrieved context.
+### Chunk Explorer
+
+Use this tab to inspect exactly what is stored in ChromaDB.
+
+Filters are available for:
+
+- source document
+- page
+- extraction quality
+
+### Index management
+
+Use this tab to:
+
+- index new PDFs
+- update modified PDFs
+- remove deleted documents from the index
+- inspect ingestion statistics and rejected pages
+- clear the vector database when a complete rebuild is required
 
 ---
 
@@ -191,13 +392,20 @@ The app will display the retrieved chunks and, if `Local LLM` mode is selected, 
 
 ### 1. PDF ingestion
 
-PDF files are loaded from `data/raw`.
+PDF files are loaded from `data/raw` and processed page by page.
 
-Each PDF is read page by page. Empty pages are ignored. Each extracted page keeps metadata including the source filename and page number.
+Each accepted page keeps metadata including:
+
+- source filename
+- page number
+- extraction method
+- extraction quality information
+
+Text-based PDFs are supported. Scanned documents still require an OCR pipeline.
 
 ### 2. Chunking
 
-Pages are split into overlapping text chunks using a recursive character splitter.
+Pages are split with an overlapping recursive text splitter.
 
 Current configuration:
 
@@ -207,118 +415,262 @@ CHUNK_OVERLAP = 250
 MIN_CHUNK_LENGTH = 300
 ```
 
-Each chunk keeps its source document, page number and chunk ID.
+Each chunk keeps its document, page and local chunk identifier.
 
-### 3. Embeddings
+### 3. Incremental indexing
 
-Chunks are embedded locally using a Hugging Face embedding model.
+The indexing pipeline compares the current files in `data/raw` with the indexed corpus.
 
-Current model:
+It distinguishes:
+
+```text
+new
+modified
+unchanged
+deleted
+```
+
+Only new or modified documents are processed again. Deleted documents are removed from ChromaDB.
+
+This avoids rebuilding the complete vector database after every document change.
+
+### 4. Chunk quality metadata
+
+Each indexed chunk receives an informative quality status such as:
+
+```text
+clean
+degraded
+```
+
+The quality metadata helps inspect extraction problems but does not currently alter retrieval scores.
+
+This is intentionally transparent: a questionable extraction remains visible in the Chunk Explorer instead of being silently discarded.
+
+### 5. Embeddings and vector storage
+
+Chunks are embedded locally with:
 
 ```text
 BAAI/bge-m3
 ```
 
-This model was selected as a stronger multilingual embedding model than lightweight baseline models.
-
-### 4. Vector storage
-
-Embeddings and chunks are stored in a local persistent ChromaDB collection.
-
-Current collection name:
+Embeddings and chunk metadata are stored in a persistent ChromaDB collection:
 
 ```text
 engineering_docs
 ```
 
-The vector database is stored locally in:
+Local storage path:
 
 ```text
 data/vector_db/
 ```
 
-### 5. Retrieval
+### 6. Dense retrieval
 
-For each user query, the app retrieves more chunks internally than the final number displayed.
+The dense retriever:
 
-This makes it possible to retrieve a broader candidate set before selecting the final top chunks.
+1. embeds the user query with BGE-M3
+2. retrieves a larger internal candidate set from ChromaDB
+3. applies a lightweight reranking function
+4. returns only the requested final chunks
 
-Current retrieval logic:
+Broad questions retrieve more internal candidates than precise questions.
 
-- precise questions retrieve a moderate number of candidates
-- broad questions retrieve more candidates
-- Chroma returns distances
-- distances are converted into readable semantic scores
+The readable semantic score is currently derived from the Chroma distance:
 
-The current reranking step is intentionally simple:
-
-```text
+```python
 semantic_score = 1 / (1 + distance)
 ```
 
-Higher semantic score means a better match.
+### 7. BM25 lexical retrieval
 
-### 6. Query rewriting
+BM25 creates an in-memory lexical index from the chunks already stored in ChromaDB.
 
-The app includes an experimental query rewriting option.
+It is useful for:
 
-When enabled, a local Ollama model rewrites the user question into a short enriched retrieval query. The rewritten query is appended to the original question instead of replacing it, to reduce the risk of retrieval degradation.
+- model references
+- error codes
+- exact technical vocabulary
+- numbers and units
+- table-oriented questions
 
-This feature can improve recall, but it can also hurt retrieval when the rewrite adds noise.
+The BM25 cache is rebuilt automatically when the indexed corpus changes.
 
-### 7. Local LLM generation
+### 8. Hybrid fusion
 
-When `Local LLM` mode is selected, retrieved chunks are passed to a local Ollama model.
+Dense and BM25 candidate lists are combined with Reciprocal Rank Fusion:
 
-The prompt instructs the model to:
+```python
+rrf_score = (
+    dense_weight / (rrf_k + dense_rank)
+    + bm25_weight / (rrf_k + bm25_rank)
+)
+```
 
-- answer only from the provided context
-- compare available sources
-- avoid unsupported assumptions
-- say clearly when the answer is not found
-- cite the source document and page
+Current configuration:
+
+```python
+RRF_K = 60
+DENSE_WEIGHT = 1.0
+BM25_WEIGHT = 1.0
+```
+
+Equal weights are intentionally kept as a neutral baseline. They have not been optimized against the current 10-question benchmark.
+
+### 9. Query rewriting
+
+The optional rewriter generates one short French retrieval query while preserving:
+
+- model names
+- references
+- codes
+- numbers
+- units
+- the original intent
+
+The rewritten query is stored in evaluation reports together with the final search query.
+
+### 10. Local LLM generation
+
+When `Local LLM` mode is selected, the final chunks are sent to Ollama.
+
+The answer is generated from the retrieved context and displayed together with the supporting chunks.
+
+---
+
+## Evaluation commands
+
+Validate the question dataset:
+
+```powershell
+python -m src.evaluation.evaluate_retrieval --validate-only
+```
+
+Dense baseline:
+
+```powershell
+python -m src.evaluation.evaluate_retrieval `
+  --retriever src.retrieval.retriever:retrieve_relevant_chunks `
+  --output data/evaluation/retrieval_report_dense_baseline.json
+```
+
+Dense with query rewriting:
+
+```powershell
+python -m src.evaluation.evaluate_retrieval `
+  --retriever src.retrieval.retriever:retrieve_relevant_chunks_with_rewrite `
+  --output data/evaluation/retrieval_report_dense_rewrite.json
+```
+
+Hybrid retrieval:
+
+```powershell
+python -m src.evaluation.evaluate_retrieval `
+  --retriever src.retrieval.retriever:retrieve_relevant_chunks_hybrid `
+  --output data/evaluation/retrieval_report_hybrid.json
+```
+
+Hybrid retrieval with query rewriting:
+
+```powershell
+python -m src.evaluation.evaluate_retrieval `
+  --retriever src.retrieval.retriever:retrieve_relevant_chunks_hybrid_with_rewrite `
+  --output data/evaluation/retrieval_report_hybrid_rewrite.json
+```
+
+Each report records:
+
+- original question
+- rewritten query when enabled
+- final search query
+- retrieval mode
+- expected document and page
+- first relevant rank
+- Hit@k results
+- retrieved chunks
+- dense, BM25 and RRF ranking information
+
+---
+
+## Tests
+
+Run the current unit tests:
+
+```powershell
+python -m pytest -q
+```
+
+The current tests validate the BM25 and RRF building blocks independently from the full application.
 
 ---
 
 ## Current limitations
 
-This is a V0 prototype. Several parts are intentionally simple and will be improved later.
-
-Current limitations:
-
-- PDF extraction only works well on text-based PDFs
-- scanned documents are not supported yet
-- no OCR pipeline
-- no HTML documentation ingestion yet
-- no BM25 retrieval yet
-- no hybrid retrieval yet
-- no cross-encoder reranker yet
-- no systematic Recall@k evaluation yet
-- no automated test set
-- no API backend yet
-- API LLM mode is not implemented yet
+- text-based PDF extraction only
+- no OCR pipeline for scanned documents
+- extraction quality detection is heuristic
+- some corrupted text can still be misclassified as clean
+- degraded chunks are visible but not yet penalized during retrieval
+- the retriever always returns the requested number of chunks, even when only one result is strongly relevant
+- no confidence threshold or dynamic final `k`
+- lightweight reranking rather than a cross-encoder
+- no HTML or Office document ingestion
+- evaluation dataset limited to 10 questions
+- no separate validation and final test split yet
+- no FastAPI backend
+- no authentication or multi-user document collections
+- no production observability
+- API LLM mode is not implemented
 
 ---
 
 ## Roadmap
 
-Planned improvements:
+### V1.x
 
-- Add BM25 retrieval
-- Add hybrid search: BM25 + embeddings
-- Add a real reranking model
-- Add Recall@k evaluation on a small benchmark question set
-- Compare embedding models:
-  - BAAI/bge-m3
-  - multilingual-e5-base
-  - all-MiniLM-L6-v2
-- Add HTML documentation ingestion
-- Add OCR support for scanned technical documents
-- Add FastAPI backend
-- Add Docker / Docker Compose setup
-- Add Langfuse or LangSmith tracing
-- Add a small public demo dataset
-- Add unit tests
+- enlarge the evaluation dataset
+- separate validation and test questions
+- improve corrupted-text and chunk-quality detection
+- evaluate quality-based retrieval penalties
+- add dynamic result filtering instead of always forcing `k` chunks
+- compare BGE-M3 with other multilingual embedding models
+- evaluate a cross-encoder reranker
+- add OCR for scanned technical documents
+- add HTML and Office document ingestion
+- improve test coverage
+
+### V2
+
+A future V2 is expected to move from a Streamlit prototype to a deployable application architecture:
+
+```text
+Next.js frontend
+        ↓
+FastAPI backend
+        ↓
+Modular RAG service
+        ├── ingestion
+        ├── dense retrieval
+        ├── BM25
+        ├── fusion
+        ├── reranking
+        └── local generation
+```
+
+Potential V2 capabilities:
+
+- document upload and deletion through the interface
+- multiple document collections
+- conversation history
+- direct links to cited PDF pages
+- Docker Compose deployment
+- background indexing jobs
+- API-based retrieval and generation
+- authentication
+- tracing and observability
+- optional agentic retrieval workflow
 
 ---
 
@@ -326,14 +678,32 @@ Planned improvements:
 
 Technical documentation is often long, fragmented and difficult to search manually.
 
-This project explores how a RAG system can help users retrieve grounded answers from engineering documents while keeping the retrieval process transparent.
+This project explores how a RAG application can retrieve grounded information from engineering documents while keeping every important stage inspectable:
 
-The focus is not only on generating answers, but also on showing the retrieved evidence behind each answer.
+- what was indexed
+- how the text was chunked
+- which chunks were retrieved
+- which retrieval strategy ranked them
+- which document and page support the answer
+- how retrieval quality changes across experiments
+
+The objective is not only to generate an answer, but to build a RAG system whose behaviour can be examined, measured and improved.
 
 ---
 
 ## Status
 
-V0 working prototype.
+**V1.1 working local application.**
 
-The project currently supports local PDF indexing, vector search, retrieval debugging and local LLM generation.
+The project currently supports:
+
+- incremental PDF indexing
+- persistent ChromaDB storage
+- dense and hybrid retrieval
+- deterministic query rewriting
+- local Ollama generation
+- chunk-level quality inspection
+- retrieval evaluation with JSON reports
+- preliminary BM25/RRF tests
+
+The current version is intended as a transparent engineering portfolio project and a foundation for a future FastAPI + Next.js V2.

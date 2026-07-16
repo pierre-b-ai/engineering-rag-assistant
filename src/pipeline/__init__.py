@@ -1,0 +1,1 @@
+"""Pipelines applicatifs du projet."""

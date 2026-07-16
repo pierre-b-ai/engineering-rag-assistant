@@ -1,0 +1,102 @@
+[
+  {
+    "id": "Q01",
+    "question": "Quelle autonomie maximale peut-on obtenir avec chacune des deux batteries compatibles avec le DJI Mini 3 ?",
+    "expected_document": "Mini_3_UM_FR.pdf",
+    "expected_pages": [
+      7
+    ],
+    "reference_answer": "38 minutes avec la Batterie de Vol Intelligente et 51 minutes avec la Batterie de Vol Intelligente Plus.",
+    "category": "numeric_comparison"
+  },
+  {
+    "id": "Q02",
+    "question": "Que signifie un clignotement alterné rouge et jaune sur le DJI Mini 3 ?",
+    "expected_document": "Mini_3_UM_FR.pdf",
+    "expected_pages": [
+      15
+    ],
+    "reference_answer": "Un étalonnage du compas est requis.",
+    "category": "diagnostic_table"
+  },
+  {
+    "id": "Q03",
+    "question": "Combien de temps le filtre adoucisseur de la machine De’Longhi reste-t-il utilisable si la machine n’est pas utilisée ?",
+    "expected_document": "mode-emploi-delonghi-magnifica-s-smart-feb2533.pdf",
+    "expected_pages": [
+      8
+    ],
+    "reference_answer": "Trois semaines maximum lorsque le filtre reste installé dans une machine inutilisée.",
+    "category": "temporal_reformulation"
+  },
+  {
+    "id": "Q04",
+    "question": "Dans quel sens faut-il régler le moulin lorsque le café coule trop lentement ou ne coule pas du tout ?",
+    "expected_document": "mode-emploi-delonghi-magnifica-s-smart-feb2533.pdf",
+    "expected_pages": [
+      9
+    ],
+    "reference_answer": "Tourner d’un cran dans le sens des aiguilles d’une montre, vers le numéro 7, uniquement lorsque le moulin fonctionne.",
+    "category": "troubleshooting_procedure"
+  },
+  {
+    "id": "Q05",
+    "question": "À quelle hauteur doit être placé le raccord du tuyau d’évacuation du lave-vaisselle Indesit ?",
+    "expected_document": "mode-emploi-TDFP57BP96EU-Lave-vaisselle-INDESIT.pdf",
+    "expected_pages": [
+      7
+    ],
+    "reference_answer": "Entre 40 et 80 cm au-dessus du sol ou du plan d’appui.",
+    "category": "installation_numeric_range"
+  },
+  {
+    "id": "Q06",
+    "question": "Quelle plage de pression d’alimentation en eau est acceptée par le lave-vaisselle TDFP 57BP96 ?",
+    "expected_document": "mode-emploi-TDFP57BP96EU-Lave-vaisselle-INDESIT.pdf",
+    "expected_pages": [
+      8
+    ],
+    "reference_answer": "De 0,05 à 1 MPa, soit de 0,5 à 10 bar ou de 7,25 à 145 psi.",
+    "category": "technical_table"
+  },
+  {
+    "id": "Q07",
+    "question": "À quelle fréquence faut-il nettoyer les filtres à graisse de la hotte IKEA, et peuvent-ils passer au lave-vaisselle ?",
+    "expected_document": "Notice-NYTTIG-FIL-500-IKEA.pdf",
+    "expected_pages": [
+      37
+    ],
+    "reference_answer": "Tous les deux mois de fonctionnement, plus souvent en usage intensif ; oui, ils peuvent être lavés au lave-vaisselle.",
+    "category": "maintenance_multi_part"
+  },
+  {
+    "id": "Q08",
+    "question": "Quelle distance minimale faut-il respecter entre la hotte IKEA et une plaque au gaz, puis une plaque électrique ?",
+    "expected_document": "Notice-NYTTIG-FIL-500-IKEA.pdf",
+    "expected_pages": [
+      39, 30
+    ],
+    "reference_answer": "650 mm pour une plaque au gaz et 500 mm pour une plaque électrique.",
+    "category": "numeric_comparison_table"
+  },
+  {
+    "id": "Q09",
+    "question": "Quelle quantité de média filtrant faut-il mettre dans la pompe SF70220-2 ?",
+    "expected_document": "Pompe piscine avec filtre sable.pdf",
+    "expected_pages": [
+      9
+    ],
+    "reference_answer": "35 kg de sable de silice nº 20 ou 25 kg de verre filtrant.",
+    "category": "model_reference_table"
+  },
+  {
+    "id": "Q10",
+    "question": "Pendant combien de temps le filtre SF60220-2 doit-il fonctionner pour une piscine de 37 850 litres ?",
+    "expected_document": "Pompe piscine avec filtre sable.pdf",
+    "expected_pages": [
+      19
+    ],
+    "reference_answer": "5 heures pour un cycle.",
+    "category": "table_lookup"
+  }
+]
